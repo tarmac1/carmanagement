@@ -20,20 +20,17 @@ public class CarService {
     }
 
     public List<Car> getAllCars() {
-        List<Car> cars = carRepository.findAll();
-        return cars != null ? cars : Collections.emptyList();
+        return carRepository.findAll();
     }
     public Car createCar(CreateCarDTO carDto) {
         if (carDto == null) {
             throw new IllegalArgumentException("CreateCarDTO cannot be null");
         }
-
         Car car = new Car();
         car.setBrand(carDto.getMake());
         car.setModel(carDto.getModel());
         car.setYear(carDto.getProductionYear());
         car.setLicensePlate(carDto.getLicensePlate());
-
         return carRepository.save(car);
     }
 }

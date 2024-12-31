@@ -22,7 +22,7 @@ public class CarController {
 
     @Autowired
     private CarService carService;
-
+    // Fetch all cars and map to DTO
     @GetMapping
     public ResponseEntity<List<ResponseCarDTO>> getAllCars() {
         logger.info("Fetching all cars");
@@ -42,28 +42,26 @@ public class CarController {
                 .collect(Collectors.toList());
 
         logger.info("Successfully fetched {} cars", response.size());
-        return ResponseEntity.ok(response); // Return empty list if no cars exist
+        return ResponseEntity.ok(response);
     }
-
+    // Create a new car
     @PostMapping
     public ResponseEntity<ResponseCarDTO> createCar(@RequestBody CreateCarDTO carDto) {
         logger.info("Creating a new car: {}", carDto);
 
         try {
             Car createdCar = carService.createCar(carDto);
-
             ResponseCarDTO responseDto = new ResponseCarDTO();
             responseDto.setId(createdCar.getId());
             responseDto.setMake(createdCar.getBrand());
             responseDto.setModel(createdCar.getModel());
             responseDto.setProductionYear(createdCar.getYear());
             responseDto.setLicensePlate(createdCar.getLicensePlate());
-
             logger.info("Successfully created car with ID: {}", createdCar.getId());
-            return ResponseEntity.status(201).body(responseDto); // Return created car with status 201
+            return ResponseEntity.status(201).body(responseDto); // Return created car
         } catch (IllegalArgumentException e) {
             logger.error("Error creating car: {}", e.getMessage());
-            return ResponseEntity.badRequest().build(); // Handle invalid input
+            return ResponseEntity.badRequest().build(); // Handle error
         }
     }
 }

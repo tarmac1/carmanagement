@@ -15,7 +15,6 @@ public class ServiceCenterService {
 
     @Autowired
     private ServiceCenterRepository serviceCenterRepository;
-
     public ServiceCenter createServiceCenter(CreateGarageDTO garageDto) {
         ServiceCenter serviceCenter = new ServiceCenter();
         serviceCenter.setName(garageDto.getName());

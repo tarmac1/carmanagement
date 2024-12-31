@@ -19,12 +19,12 @@ public class MaintenanceRequestController {
 
     @Autowired
     private MaintenanceRequestService maintenanceRequestService;
-
+    // Create a new maintenance request
     @PostMapping
     public ResponseEntity<MaintenanceRequest> createMaintenanceRequest(@Valid @RequestBody CreateMaintenanceDTO requestDto) {
         return ResponseEntity.ok(maintenanceRequestService.createMaintenanceRequest(requestDto));
     }
-
+    // Update an existing maintenance request
     @PutMapping("/{id}")
     public ResponseEntity<MaintenanceRequest> updateMaintenanceRequest(
             @PathVariable Long id,
@@ -33,14 +33,14 @@ public class MaintenanceRequestController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    // Get maintenance request by ID
     @GetMapping("/{id}")
     public ResponseEntity<MaintenanceRequest> getMaintenanceRequestById(@PathVariable Long id) {
         return maintenanceRequestService.getMaintenanceRequestById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    // Get all maintenance requests with filters
     @GetMapping
     public ResponseEntity<List<MaintenanceRequest>> getAllMaintenanceRequests(
             @RequestParam(required = false) Long carId,
@@ -49,7 +49,7 @@ public class MaintenanceRequestController {
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String endDate) {
         return ResponseEntity.ok(maintenanceRequestService.getFilteredMaintenanceRequests(carId, garageId, startDate, endDate));
     }
-
+    // Get monthly maintenance request report
     @GetMapping("/monthly-report")
     public ResponseEntity<List<MaintenanceRequest>> getMonthlyRequestsReport(
             @RequestParam Long garageId,
@@ -57,7 +57,7 @@ public class MaintenanceRequestController {
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM") String endMonth) {
         return ResponseEntity.ok(maintenanceRequestService.getMonthlyRequestsReport(garageId, startMonth, endMonth));
     }
-
+    // Get daily availability report for maintenance
     @GetMapping("/daily-availability")
     public ResponseEntity<List<MaintenanceRequest>> getDailyAvailabilityReport(
             @RequestParam Long garageId,
