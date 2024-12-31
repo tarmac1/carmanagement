@@ -16,6 +16,10 @@ public class CreateCarDTO {
     @NotNull
     private Integer productionYear;
 
+    @NotNull
+    @Size(min = 1, max = 15) // License plate validation (length)
+    private String licensePlate;
+
     public String getMake() {
         return make;
     }
@@ -38,5 +42,13 @@ public class CreateCarDTO {
 
     public void setProductionYear(Integer productionYear) {
         this.productionYear = productionYear;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 }

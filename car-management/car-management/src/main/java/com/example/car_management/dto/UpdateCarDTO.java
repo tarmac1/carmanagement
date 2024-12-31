@@ -21,6 +21,8 @@ public class UpdateCarDTO {
     @Size(min = 1, max = 20)
     private String licensePlate;
 
+    @NotNull
+    @Size(min = 1, message = "At least one garage ID must be provided")
     private List<Long> garageIds;
 
     public String getMake() {
